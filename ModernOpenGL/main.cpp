@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 
 	Vertex vertices[] = {
 		Vertex(glm::vec3(-0.5, -0.5, 0.0), glm::vec2(0.0, 0.0)),
-		Vertex(glm::vec3(0, 0.5, 0.0), glm::vec2(0.5, 0.0)),
+		Vertex(glm::vec3(0, 0.5, 0.0), glm::vec2(0.5, 1.0)),
 		Vertex(glm::vec3(0.5, -0.5, 0.0), glm::vec2(1.0, 0.0))
 	};
 

@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Transform.h"
 
 int main(int argc, char** argv)
 {
@@ -18,6 +19,7 @@ int main(int argc, char** argv)
 	Mesh mesh(vertices, sizeof(vertices) / sizeof(vertices[0]));
 	Shader shader("./res/basicShader");
 	Texture texture("./res/bricks.jpg");
+	Transform transform;
 
 	while (!display.IsClosed())
 	{
@@ -25,6 +27,8 @@ int main(int argc, char** argv)
 
 		shader.Bind();
 		texture.Bind(0);
+		shader.Update(transform);
+
 		mesh.Draw();
 
 		display.Update();

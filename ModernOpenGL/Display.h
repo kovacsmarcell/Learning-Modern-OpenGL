@@ -14,6 +14,9 @@ public:
 	void Update();
 
 	bool IsClosed();
+	void SetClosed(bool closed) { isClosed = closed; }
+
+	SDL_Window* GetWindow() { return m_window; }
 
 private:
 	SDL_Window* m_window;

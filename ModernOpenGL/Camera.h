@@ -22,6 +22,34 @@ public:
 		return m_perspective * glm::lookAt(m_position, m_position + m_forward, m_up);
 	}
 
+	void MoveForward(float amt)
+	{
+		m_position += m_forward * amt;
+	}
+
+	void MoveRight(float amt)
+	{
+		m_position += glm::cross(m_up, m_forward) * amt;
+	}
+
+	void Pitch(float angle)
+	{
+		glm::vec3 right = glm::normalize(glm::cross(m_up, m_forward));
+
+		m_forward = glm::vec3(glm::normalize(glm::rotate(angle, right) * glm::vec4(m_forward, 0.0)));
+		m_up = glm::normalize(glm::cross(m_forward, right));
+	}
+
+	void RotateY(float angle)
+	{
+		static const glm::vec3 UP(0.0f, 1.0f, 0.0f);
+
+		glm::mat4 rotation = glm::rotate(angle, UP);
+
+		m_forward = glm::vec3(glm::normalize(rotation * glm::vec4(m_forward, 0.0)));
+		m_up = glm::vec3(glm::normalize(rotation * glm::vec4(m_up, 0.0)));
+	}
+
 private:
 	glm::mat4 m_perspective;
 	glm::vec3 m_position;

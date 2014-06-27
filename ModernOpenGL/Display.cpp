@@ -49,7 +49,7 @@ void Display::Update()
 {
 	SDL_GL_SwapWindow(m_window);
 
-	SDL_Delay(1);
+	SDL_Delay(2);
 }
 
 bool Display::IsClosed()

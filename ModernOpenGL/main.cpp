@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 	Mesh mesh2("./res/monkey3.obj");
 	Shader shader("./res/basicShader");
 	Texture texture("./res/bricks.jpg");
-	Camera camera(glm::vec3(0, 0, -4), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
+	Camera camera(glm::vec3(0, 0, -4), 70.0f, (float)display.GetWidth() / (float)display.GetHeight(), 0.01f, 1000.0f);
 	Transform transform;
 
 	double angle = 0.0f;
@@ -38,9 +38,10 @@ int main(int argc, char** argv)
 	int centerX = 400;
 	int centerY = 300;
 
-	SDL_ShowCursor(false);
-
 	std::map<int, bool> key;
+	std::map<int, bool> buttons;
+
+	bool mouseLocked = false;
 
 	while (!display.IsClosed())
 	{
@@ -58,11 +59,15 @@ int main(int argc, char** argv)
 			{
 				key[e.key.keysym.sym] = false;
 			}
+			if (e.type == SDL_MOUSEBUTTONDOWN)
+				buttons[e.button.button] = true;
+			if (e.type == SDL_MOUSEBUTTONUP)
+				buttons[e.button.button] = false;
 		}
 
 		transform.SetRot(glm::vec3(0, angle * 100, angle * 100));
 
-		if (!key[SDLK_ESCAPE])
+		if (mouseLocked)
 		{
 			int mouseX;
 			int mouseY;
@@ -78,6 +83,19 @@ int main(int argc, char** argv)
 
 			camera.Pitch(mouseDY / 2);
 			camera.RotateY(-mouseDX / 2);
+		}
+
+		if (key[SDLK_ESCAPE])
+		{
+			SDL_ShowCursor(true);
+			mouseLocked = false;
+		}
+		if (buttons[SDL_BUTTON_LEFT])
+		{
+			SDL_ShowCursor(false);
+			SDL_WarpMouseInWindow(display.GetWindow(), 400, 300);
+
+			mouseLocked = true;
 		}
 
 		if (key[SDLK_w])

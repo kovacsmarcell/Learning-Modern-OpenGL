@@ -14,6 +14,24 @@ public:
 	void Update();
 
 	bool IsClosed();
+	
+	int GetWidth()
+	{
+		int w = 0;
+
+		SDL_GetWindowSize(m_window, &w, NULL);
+		
+		return w;
+	}
+	int GetHeight()
+	{
+		int h = 0;
+
+		SDL_GetWindowSize(m_window, NULL, &h);
+
+		return h;
+	}
+
 	void SetClosed(bool closed) { isClosed = closed; }
 
 	SDL_Window* GetWindow() { return m_window; }
